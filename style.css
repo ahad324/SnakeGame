@@ -13,16 +13,28 @@ body {
     align-items: center;
     min-height: 100vh;
     background: #E3F2FD;
+    flex-direction: column;
 }
 
 .wrapper {
     width: 65vmin;
-    height: 70vmin;
+    height: 80vmin;
     display: flex;
     overflow: hidden;
     flex-direction: column;
     border-radius: 5px;
     background: #293447;
+    text-align: center;
+}
+
+span i {
+    font-size: 2rem;
+    margin: 10px 0;
+    color: crimson;
+    cursor: pointer;
+    text-shadow: 1px 1px 10px black;
+    /* transform: rotate(90deg); */
+    transition: 1.2s all ease;
 }
 
 .game-details {
@@ -44,6 +56,7 @@ body {
 
 .play-board .food {
     background: #FF003D;
+    border-radius: 10px;
 }
 
 .play-board .head {
@@ -68,7 +81,7 @@ body {
 @media screen and (max-width: 800px) {
     .wrapper {
         width: 90vmin;
-        height: 115vmin;
+        height: 130vmin;
     }
 
     .game-details {

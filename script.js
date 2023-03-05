@@ -2,7 +2,23 @@ const playBoard = document.querySelector(".play-board");
 const scoreelement = document.querySelector('.score');
 const highScoreelement = document.querySelector('.high-score');
 const controls = document.querySelectorAll('.controls i');
+const theme = document.querySelector('span .theme');
 
+theme.addEventListener('click', () => {
+    theme.classList.toggle('fa-sun')
+
+    if (theme.classList.toggle('fa-moon')) {
+        document.body.style.background = "";
+        document.body.style.transition, theme.style.transition = '1.2s all ease';
+        theme.style.color = 'crimson';
+
+    } else {
+        document.body.style.background = "black";
+        document.body.style.transition, theme.style.transition = '1.2s all ease';
+        theme.style.color = 'white';
+    }
+
+})
 
 let gameover = false;
 let foodX, foodY;
@@ -11,6 +27,13 @@ let snakebody = [];
 let velocityX = 0, velocityY = 0;
 let setIntervalID;
 let score = 0;
+
+let bgmsc1 = new Audio('bgmusic1.mp3');
+let foodeat = new Audio('foodeat.wav');
+let gameovermsc = new Audio('gameover.wav');
+if (bgmsc1) {
+    bgmsc1.play();
+}
 
 let highscore = localStorage.getItem("high-score") || 0;
 highScoreelement.innerText = `High Score : ${highscore} `;
@@ -21,6 +44,7 @@ const changefoodposition = () => {
 }
 
 const handlegameover = () => {
+    gameovermsc.play();
     clearInterval(setIntervalID);
     alert("Game over! Press OK to replay ...");
     location.reload();
@@ -57,14 +81,21 @@ const initGame = () => {
     let htmlMarkup = `<div class="food" style="grid-area:${foodY} / ${foodX}"></div>`;
 
     if (snakeX === foodX && snakeY === foodY) {
+        foodeat.play();
         changefoodposition();
         snakebody.push([foodX, foodY]);
         score++;
+
 
         highscore = score >= highscore ? score : highscore;
         localStorage.setItem("high-score", highscore)
         scoreelement.innerText = `Score : ${score} `;
         highScoreelement.innerText = `High Score : ${highscore} `;
+
+
+        if (score > 50) {
+            score += 2;
+        }
     }
 
     for (let i = snakebody.length - 1; i > 0; i--) {
